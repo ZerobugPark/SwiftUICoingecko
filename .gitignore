@@ -12,7 +12,7 @@
 .DS_Store
 
 ## API
-SwiftUICoingecko/Core/Network/APIKey.swift
+SwiftUICoingecko/Core/Network/APIURLs.swift
 
 ## User settings
 xcuserdata/
