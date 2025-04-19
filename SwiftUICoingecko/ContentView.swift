@@ -16,9 +16,22 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        .task {
+            Task {
+                do {
+                    let result = try await MockNetworkManager().callRequest(api: .coingeckoTrending, type: CoinGeckoTrendingAPI.self)
+                    dump(result)
+                } catch let error as APIError {
+                    print(error.message)
+                } catch {
+                    print(error)
+                }
+            }
+         
+        }
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}
