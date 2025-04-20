@@ -22,15 +22,17 @@ struct TrendingCoinDetails: Decodable {
     let symbol: String
     let thumb: String
     let data: TrendingCoinData
+  
     
 }
 
 struct TrendingCoinData: Decodable {
     
     var pricePercent: [String: Double]
-    
+    let marketCap: String
     enum CodingKeys: String, CodingKey {
         case pricePercent = "price_change_percentage_24h"
+        case marketCap = "market_cap"
     }
     
     var krwPrice: Double? {
