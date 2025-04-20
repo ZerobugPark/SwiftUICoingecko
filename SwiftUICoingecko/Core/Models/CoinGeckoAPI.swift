@@ -143,7 +143,9 @@ struct SearchCoin: Decodable {
         thumb = try container.decode(String.self, forKey: .thumb)
         rank = try container.decodeIfPresent(Int.self, forKey: .rank) ?? -1
         
-        isLiked = false
+        let status = UserDefaultManager.coinId
+        isLiked = status[id] ?? false
     }
     
 }
+

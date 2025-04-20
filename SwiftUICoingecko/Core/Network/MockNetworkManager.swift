@@ -13,17 +13,18 @@ final class MockNetworkManager: NetworkService {
     
     func callRequest<T: Decodable>(api: CoinGeckpRequest, type: T.Type) async throws -> T {
       
-        let mockData: T
+        //let mockData: T
+        
         switch api {
         case .coingeckoTrending:
             return mockTrendingAPI as! T
-        case .coingeckoMarket(id: let id):
+        case .coingeckoMarket:
             return mockTrendingAPI as! T
-        case .coingeckoSearch(query: let query):
+        case .coingeckoSearch:
             return mockTrendingAPI as! T
         }
 
-      
+        
     }
 }
 

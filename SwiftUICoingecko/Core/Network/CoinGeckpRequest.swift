@@ -55,39 +55,8 @@ enum CoinGeckpRequest {
     private func makeRequest(with url: URL) -> URLRequest {
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5)
         request.httpMethod = "GET"
-      
-      
+
         return request
     }
 }
 
-
-//
-//var method: HTTPMethod {
-//    return .get
-//}
-//
-//var header: HTTPHeaders? {
-//    switch self {
-//    case .coingeckoTrending:
-//        return nil
-//    case .coingeckoMarket(let id):
-//        return nil
-//    case .coingeckoSearch(let query):
-//        return nil
-//    }
-//}
-//
-//
-//var parameter: Parameters? {
-//    switch self {
-//    case .coingeckoTrending:
-//        return nil
-//    case .coingeckoMarket(let id):
-//        let parameters = ["vs_currency": "krw", "ids": id, "sparkline": "true"]
-//        return parameters
-//    case .coingeckoSearch(let query):
-//        let parameters = ["query": query]
-//        return parameters
-//    }
-//}

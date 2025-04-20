@@ -74,7 +74,7 @@ final class NetworkManager: NetworkService {
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
-            
+            print(request)
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
@@ -99,7 +99,7 @@ final class NetworkManager: NetworkService {
                 
             }
             
-            dump(data)
+            
             let decodedData = try decoder.decode(T.self, from: data)
             
             return decodedData
