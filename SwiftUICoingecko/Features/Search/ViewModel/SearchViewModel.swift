@@ -20,6 +20,7 @@ final class SearchViewModel: ViewModelType {
     
     init() {
         transform()
+        observeFavoriteToggle()
     }
     
     
@@ -53,7 +54,6 @@ extension SearchViewModel {
 }
 
 // MARK: Action
-
 extension SearchViewModel {
     
     
@@ -81,9 +81,37 @@ extension SearchViewModel {
     
     private func handleBookmarkToggle(id: String) {
         guard let index = output.coins.firstIndex(where: { $0.id == id }) else { return }
+        
+        let willBeLiked = !output.coins[index].isLiked
+        
+        if willBeLiked {
+            let currentLiked = UserDefaultManager.coinId.filter { $0.value == true }
+            guard currentLiked.count < 10 else {
+                return
+            }
+        }
+
+        
         output.coins[index].isLiked.toggle()
         let newState = output.coins[index].isLiked
         UserDefaultManager.updateCoin(id: id, isLiked: newState)
     }
     
+    private func observeFavoriteToggle() {
+        NotificationCenter.default.publisher(for: .didToggleFavorite)
+            .sink { [weak self] notification in
+                guard
+                    let userInfo = notification.userInfo,
+                    let id = userInfo["id"] as? String,
+                    let isFavorite = userInfo["isFavorite"] as? Bool,
+                    let index = self?.output.coins.firstIndex(where: { $0.id == id })
+                else { return }
+
+                guard let self = self else { return }
+                
+                self.output.coins[index].isLiked = isFavorite
+                UserDefaultManager.updateCoin(id: id, isLiked: isFavorite)
+            }
+            .store(in: &cancellables)
+    }
 }

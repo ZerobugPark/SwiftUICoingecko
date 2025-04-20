@@ -13,7 +13,7 @@ struct SearchView: View {
     
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 searchListView()
             }
@@ -31,8 +31,16 @@ struct SearchView: View {
         ScrollView(.vertical) {
             LazyVStack {
                 ForEach($viewModel.output.coins, id: \.id) { $item in
-                    CoinInfoBasicView(imageURL: item.thumb, title: item.symbol, subTitie: item.name, searchText: viewModel.searchText, trailing: BookmarkButtonView(id: item.id, item.isLiked))
+                    NavigationLink {
+                        DetailView(coin: item)
+                    } label: {
+                        CoinInfoBasicView(imageURL: item.thumb, title: item.name, subTitie: item.symbol, searchText: viewModel.searchText, trailing: BookmarkButtonView(id: item.id, item.isLiked))
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
+          
+         
             }.padding(.horizontal, 24)
         }
     }

@@ -27,7 +27,7 @@ struct CoinInfoBasicView<Trailing: View>: View {
                 Text(subTitie)
                     .font(.system(size: 14))
                     .foregroundStyle(.gray)
-            }
+            }.frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
             trailing
         }

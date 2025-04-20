@@ -80,7 +80,7 @@ struct CoinGeckoMarketAPI: Decodable {
     let athDate: String // 최고가 날자
     let atl: Double // 역대 최저가
     let atlDate: String // 최저가 날짜
-    
+    let lastUpdated: String
     let sparklineIn7d: [String: [Double]]
 
     
@@ -104,6 +104,7 @@ struct CoinGeckoMarketAPI: Decodable {
         case athDate = "ath_date"
         case atl
         case atlDate = "atl_date"
+        case lastUpdated = "last_updated"
         case sparklineIn7d = "sparkline_in_7d"
     
     }
