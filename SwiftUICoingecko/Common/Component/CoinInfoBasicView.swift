@@ -23,6 +23,7 @@ struct CoinInfoBasicView<Trailing: View>: View {
             CoinImageView(url: imageURL)
             VStack(alignment: .leading, spacing: 2) {
                 highlightedText(title, searchText: searchText)
+                    .lineLimit(1)
                 
                 Text(subTitie)
                     .font(.system(size: 14))

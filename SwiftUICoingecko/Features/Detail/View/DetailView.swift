@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct DetailView: View {
-    @State var coinInfo: SearchCoin
+    let id: String
+    @State var isLiked: Bool
     @Environment(\.dismiss) private var dismiss // 뒤로 가기용 Environment
     @StateObject var viewModel: DetailViewModel
     
-    init(coin: SearchCoin) {
-        self.coinInfo = coin
-        _viewModel = StateObject(wrappedValue: DetailViewModel(id: coin.id))
+    init(id: String, isLiked: Bool) {
+        self.id = id
+        self.isLiked = isLiked
+        _viewModel = StateObject(wrappedValue: DetailViewModel(id: id))
         
     }
     
@@ -45,10 +47,10 @@ struct DetailView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         // 즐겨찾기 로직
-                        coinInfo.isLiked.toggle()
-                        viewModel.input.bookmarkToggled.send((coinInfo.id, coinInfo.isLiked))
+                        isLiked.toggle()
+                        viewModel.input.bookmarkToggled.send((id, isLiked))
                     }) {
-                        Image(systemName: coinInfo.isLiked ? "star.fill" : "star")
+                        Image(systemName: isLiked ? "star.fill" : "star")
                             .foregroundColor(.purple)
                     }
                 }
@@ -87,7 +89,7 @@ struct DetailView: View {
     
     @ViewBuilder
     private func priceSection(_ price: Double, _ percent: Double) -> some View {
-        Text("\(price.formatted())")
+        Text("₩\(price.formatted())")
             .font(.title)
             .fontWeight(.bold)
         

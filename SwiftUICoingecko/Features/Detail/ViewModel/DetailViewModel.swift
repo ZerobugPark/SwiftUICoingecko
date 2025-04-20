@@ -20,7 +20,6 @@ final class DetailViewModel: ViewModelType {
     
     init(id: String) {
         self.id = id
-        print(#function)
         transform()
     }
     

@@ -95,6 +95,12 @@ extension SearchViewModel {
         output.coins[index].isLiked.toggle()
         let newState = output.coins[index].isLiked
         UserDefaultManager.updateCoin(id: id, isLiked: newState)
+        
+        NotificationCenter.default.post(
+            name: .didToggleFavorite,
+            object: nil,
+            userInfo: ["id": id, "isFavorite": newState]
+        )
     }
     
     private func observeFavoriteToggle() {

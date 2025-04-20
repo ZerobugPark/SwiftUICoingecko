@@ -32,7 +32,7 @@ struct SearchView: View {
             LazyVStack {
                 ForEach($viewModel.output.coins, id: \.id) { $item in
                     NavigationLink {
-                        DetailView(coin: item)
+                        DetailView(id: item.id, isLiked: item.isLiked)
                     } label: {
                         CoinInfoBasicView(imageURL: item.thumb, title: item.name, subTitie: item.symbol, searchText: viewModel.searchText, trailing: BookmarkButtonView(id: item.id, item.isLiked))
                             .contentShape(Rectangle())

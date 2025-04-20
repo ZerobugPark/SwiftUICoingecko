@@ -32,10 +32,11 @@ enum UserDefaultManager {
     static var coinId
     
     static func updateCoin(id: String, isLiked: Bool) {
+        // 현재 저장된 값 가져오기
+        var current = coinId
+        
         if isLiked {
-            // 현재 저장된 값 가져오기
-            var current = coinId
-            
+
             // 이미 10개면 하나 제거
             if current.filter({ $0.value }).count >= 10 {
                 if let firstKey = current.filter({ $0.value }).keys.first {
@@ -43,16 +44,18 @@ enum UserDefaultManager {
                 }
             }
             current[id] = true
-            coinId = current
+       
         } else {
-            var current = coinId
-            current[id] = nil
-            coinId = current
+            current.removeValue(forKey: id)
         }
+        
+        coinId = current // 딕셔너리 전체를 다시 저장
     }
     
     static func isLiked(id: String) -> Bool {
         return coinId[id] == true
     }
+    
+    
     
 }
